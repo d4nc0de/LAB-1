@@ -1,12 +1,15 @@
 import csv
 import random
+from modelo.arbol_avl import AVLTree
 from modelo.pelicula import Pelicula
 
 class ControladorPeliculas:
-    def __init__(self, archivo_csv, limite=7):
+    def __init__(self, modelo, vista, archivo_csv, limite=3):
         self.archivo_csv = archivo_csv
         self.limite = limite
         self.peliculas = []
+        self.vista = vista
+        self.modelo = modelo
 
     def cargar_peliculas(self):
         with open(self.archivo_csv, mode='r', newline='', encoding='utf-8') as archivo:
@@ -37,6 +40,12 @@ class ControladorPeliculas:
                 )
 
                 self.peliculas.append(pelicula)
+
+    def crear_arbol(peliculas):
+        arbol = AVLTree()
+        for pelicula in peliculas:
+            arbol.insertar_pelicula()
+
 
     def mostrar_peliculas(self):
         for pelicula in self.peliculas:
