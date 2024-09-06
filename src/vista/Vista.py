@@ -1,4 +1,4 @@
-import customtkinter as ctk
+import customtkinter as ctk       
 import tkinter as tk
 from tkinter import Canvas
 #class Vista:
@@ -10,10 +10,14 @@ from tkinter import Canvas
      #   self.root.geometry("300x200")
       #  
         # Etiqueta
+        #self.label = ctk.CTkLabel(master=self.root, text="Hola", font=("Arial", 16))
+        #self.label.pack(pady=20)
        # self.label = ctk.CTkLabel(master=self.root, text="Hola", font=("Arial", 16))
         #self.label.pack(pady=20)
         
         # Botón
+        #self.boton = ctk.CTkButton(master=self.root, text="Actualizar", command=self.actualizar)
+        #self.boton.pack(pady=20)
         #self.boton = ctk.CTkButton(master=self.root, text="Actualizar", command=self.actualizar)
         #self.boton.pack(pady=20)
 
@@ -23,9 +27,9 @@ from tkinter import Canvas
 # Función para crear un botón redondeado con eventos de hover
 def create_rounded_button(canvas, x, y, width, height, text, command):
     radius = 50
-    color_interior = "#729020"
-    color_borde = "#2d3e06"
-    color_hover = "#88a838"
+    color_interior = "#be2332"
+    color_borde = "#1d1f2d"
+    color_hover = "#5b081c"
 
     # Dibujar el fondo redondeado del botón
     border_rects = [
@@ -69,15 +73,15 @@ def create_rounded_button(canvas, x, y, width, height, text, command):
 # Crear ventana principal
 root = tk.Tk()
 root.title("Interfaz con botones redondeados")
-root.geometry("1000x1000")  # Tamaño de la ventana 1080x1080
+root.geometry("1500x1000")  # Tamaño de la ventana 1080x1080
 root.config(bg="white")  # Fondo de la ventana blanco
 
 # Crear frame para contener los botones y centrarlo
 frame = tk.Frame(root, bg="white")
-frame.pack(expand=True)
+frame.pack(side=tk.LEFT, expand=True, fill=tk.BOTH)  # Alineación a la izquierda
 
 # Crear canvas dentro del frame
-canvas = Canvas(frame, width=400, height=500, bg="white", highlightthickness=0)
+canvas = Canvas(frame, width=1500, height=1000, bg="white", highlightthickness=0)
 canvas.pack()
 
 # Funciones de comando para los botones
@@ -103,14 +107,13 @@ def salir():
     root.quit()
 
 # Crear botones
-create_rounded_button(canvas, 10, 10, 330, 50, "MOSTRAR ÁRBOL", mostrar_arbol)
-create_rounded_button(canvas, 10, 70, 330, 50, "BÚSQUEDA", busqueda)
-create_rounded_button(canvas, 10, 130, 330, 50, "BÚSQUEDA ESPECIALIZADA", busqueda_especializada)
-create_rounded_button(canvas, 10, 190, 330, 50, "INSERTAR", insertar)
-create_rounded_button(canvas, 10, 250, 330, 50, "ELIMINAR", eliminar)
-create_rounded_button(canvas, 10, 310, 330, 50, "RECORRIDO POR NIVELES", recorrido_por_niveles)
-create_rounded_button(canvas, 10, 370, 330, 50, "SALIR", salir)
+create_rounded_button(canvas, 100, 90, 380, 50, "MOSTRAR ÁRBOL", mostrar_arbol)
+create_rounded_button(canvas, 100, 150, 380, 50, "BÚSQUEDA", busqueda)
+create_rounded_button(canvas, 100, 210, 380, 50, "BÚSQUEDA ESPECIALIZADA", busqueda_especializada)
+create_rounded_button(canvas, 100, 270, 380, 50, "INSERTAR", insertar)
+create_rounded_button(canvas, 100, 330, 380, 50, "ELIMINAR", eliminar)
+create_rounded_button(canvas, 100, 390, 380, 50, "RECORRIDO POR NIVELES", recorrido_por_niveles)
+create_rounded_button(canvas, 100, 450, 380, 50, "SALIR", salir)
 
 # Ejecutar la aplicación
 root.mainloop()
-
