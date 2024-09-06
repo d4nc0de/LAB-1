@@ -8,43 +8,57 @@ def actualizar_derecha(titulo, texto_central, con_input=False, input_text1=None,
         widget.destroy()
 
     # Mostrar el título y el texto central con el mismo estilo y formato que los botones
-    label_titulo = ctk.CTkLabel(master=right_frame, text=titulo, font=("Arial", 28, "bold"), text_color="black")
+    label_titulo = ctk.CTkLabel(master=right_frame, text=titulo, font=("Arial", 30, "bold"), text_color="black")
     label_titulo.pack(pady=40)
 
-    label_central = ctk.CTkLabel(master=right_frame, text=texto_central, font=("Arial", 28, "bold"), text_color="black")
+    label_central = ctk.CTkLabel(master=right_frame, text=texto_central, font=("Arial", 30, "bold"), text_color="black")
     label_central.pack(pady=40)
 
     if con_input:
-        label_input1 = ctk.CTkLabel(master=right_frame, text=input_text1, font=("Arial", 28, "bold"), text_color="black")
+        label_input1 = ctk.CTkLabel(master=right_frame, text=input_text1, font=("Arial", 30, "bold"), text_color="black")
         label_input1.pack(pady=20)
-        input1 = ctk.CTkEntry(master=right_frame, width=200)
+        input1 = ctk.CTkEntry(master=right_frame, width=380)
         input1.pack(pady=10)
 
         if input_text2:
-            label_input2 = ctk.CTkLabel(master=right_frame, text=input_text2, font=("Arial", 28, "bold"), text_color="black")
+            label_input2 = ctk.CTkLabel(master=right_frame, text=input_text2, font=("Arial", 30, "bold"), text_color="black")
             label_input2.pack(pady=20)
-            input2 = ctk.CTkEntry(master=right_frame, width=200)
+            input2 = ctk.CTkEntry(master=right_frame, width=380)
             input2.pack(pady=10)
 
         # Botón con el mismo estilo y texto dinámico
-        boton_accion = ctk.CTkButton(master=right_frame, text=boton_accion, font=("Arial", 28, "bold"), fg_color="#be2332", hover_color="#5b081c", text_color="black")
-        boton_accion.pack(pady=20)
+        boton_accion = ctk.CTkButton(master=right_frame, text=boton_accion, font=("Arial", 30, "bold"), fg_color="#be2332", hover_color="#5b081c", text_color="black")
+        boton_accion.pack(pady=20)# Crear un botón de acción con borde y mayor altura
+    boton_accion = ctk.CTkButton(
+        master=right_frame,
+        text=boton_accion_texto,
+        font=("Arial", 30, "bold"),
+        fg_color="#be2332",
+        hover_color="#5b081c",
+        text_color="black",
+        corner_radius=50,  # Para que tenga los bordes redondeados
+        border_width=3,  # Ancho del borde
+        border_color="#1d1f2d",  # Color del borde
+        height=60  # Ajuste de altura para que sea más alto
+    )
+    boton_accion.pack(pady=20)
+
 
 # Funciones para actualizar el lado derecho con el texto adecuado del botón
 def mostrar_arbol():
     actualizar_derecha("Mostrar Árbol", "Aún no implementado")
 
 def busqueda():
-    actualizar_derecha("Búsqueda", "Ingrese un nodo:", con_input=True, input_text1="Nodo", boton_accion="Buscar")
+    actualizar_derecha("", "Búsqueda", con_input=True, input_text1="Ingrese un nodo", boton_accion="Buscar")
 
 def busqueda_especializada():
     actualizar_derecha("Búsqueda Especializada", "Ingresos mínimos internacionales:", con_input=True, input_text1="Monto", input_text2="Ingrese un año", boton_accion="Buscar")
 
 def insertar():
-    actualizar_derecha("Insertar Nodo", "Inserte nodo", con_input=True, input_text1="Nombre del nodo", boton_accion="Agregar")
+    actualizar_derecha(" ", "Inserte nodo", con_input=True, input_text1="Nombre del nodo", boton_accion="Agregar")
 
 def eliminar():
-    actualizar_derecha("Eliminar Nodo", "Elimine nodo", con_input=True, input_text1="Nombre del nodo", boton_accion="Eliminar")
+    actualizar_derecha(" ", "Elimine nodo", con_input=True, input_text1="Nombre del nodo", boton_accion="Eliminar")
 
 def recorrido_por_niveles():
     actualizar_derecha("Recorrido por Niveles", "Muy pronto")
