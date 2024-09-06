@@ -84,28 +84,6 @@ frame.pack(side=tk.LEFT, expand=True, fill=tk.BOTH)  # Alineación a la izquierd
 canvas = Canvas(frame, width=1500, height=1000, bg="white", highlightthickness=0)
 canvas.pack()
 
-# Funciones de comando para los botones
-def mostrar_arbol():
-    print("Mostrar árbol")
-
-def busqueda():
-    print("Búsqueda")
-
-def busqueda_especializada():
-    print("Búsqueda especializada")
-
-def insertar():
-    print("Insertar")
-
-def eliminar():
-    print("Eliminar")
-
-def recorrido_por_niveles():
-    print("Recorrido por niveles")
-
-def salir():
-    root.quit()
-
 # Crear botones
 create_rounded_button(canvas, 100, 90, 380, 50, "MOSTRAR ÁRBOL", mostrar_arbol)
 create_rounded_button(canvas, 100, 150, 380, 50, "BÚSQUEDA", busqueda)
