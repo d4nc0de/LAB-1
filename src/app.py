@@ -101,7 +101,7 @@ class AVLApp:
         # Leer el archivo CSV
         df = pd.read_csv('data/dataset_movies.csv')
         # Seleccionar títulos aleatorios
-        titles = random.sample(list(df['Title']), 30)
+        titles = random.sample(list(df['Title']), 12)
         titles = [title for title in titles if ':' not in title]
 
         for title in titles:
@@ -244,7 +244,7 @@ class AVLApp:
         df = pd.read_csv('data/dataset_movies.csv')
 
         # Seleccionar títulos aleatorios
-        self.generated_titles = random.sample(list(df['Title']), 30)
+        self.generated_titles = random.sample(list(df['Title']), 10)
         self.generated_titles = [title for title in self.generated_titles if ':' not in title]
 
         for title in self.generated_titles:
@@ -253,10 +253,43 @@ class AVLApp:
 
 
     def level_order_traversal(self):
-        self.tree.level_order_traversal(self.root)
+        # Obtener los títulos en orden de niveles desde el árbol AVL
+        titles = self.tree.level_order_traversal(self.root)
 
+        # Formatear los títulos asegurando que se mantengan completos
+        formatted_titles = []
+        for title in titles:
+            # Asegurarse de que el título sea un string y no se descomponga
+            if isinstance(title, str):
+                formatted_titles.append(title)
+
+        # Combinar los títulos formateados en un solo string para mostrar
+        formatted_text = "\n".join(formatted_titles)
+
+        # Mostrar el resultado en el panel derecho, ajustando líneas largas
+        self.actualizar_derecha("Recorrido por Niveles", self.format_text_for_screen(formatted_text, max_width=70))
+
+    def format_text_for_screen(self, text, max_width=70):
+        # Función para ajustar texto a la pantalla dividiendo en líneas de max_width caracteres
+        words = text.split()
+        lines = []
+        current_line = ""
+
+        for word in words:
+            if len(current_line) + len(word) + 1 > max_width:
+                lines.append(current_line)
+                current_line = word
+            else:
+                current_line += (" " + word if current_line else word)
+
+        # Agregar la última línea si contiene texto
+        if current_line:
+            lines.append(current_line)
+
+        return "\n".join(lines)
+    
     def visualize_tree(self):
-        visualize_tree(self.root)
+            visualize_tree(self.root)
 
 
 if __name__ == "__main__":
