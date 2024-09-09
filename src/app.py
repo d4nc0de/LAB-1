@@ -170,7 +170,6 @@ class AVLApp:
             self.actualizar_derecha("Resultado de Búsqueda", result_text)
         else:
             messagebox.showinfo("Info", f"{title} not found")
-
     def insert_node(self):
             self.actualizar_derecha("INSERTAR", "Ingrese el nodo a insertar", con_input=True, input_text1="Nombre del nodo", boton_accion="Agregar")
             self.boton_accion.configure(command=self.execute_insert)
@@ -208,8 +207,8 @@ class AVLApp:
                                         (filtered_df['Domestic Percent Earnings'] < filtered_df['Foreign Percent Earnings']) & 
                                         (filtered_df['Foreign Earnings'] >= foreign_earnings)]
 
-        if not specialized_movies.empty:
-            title = specialized_movies.iloc[0]['Title']  # Tomar la primera película encontrada
+        if len(specialized_movies) == 1:
+            title = specialized_movies.iloc[0]['Title']
 
             level = find_level(self.root, title)
             parent = find_parent(self.root, title)
@@ -226,8 +225,32 @@ class AVLApp:
                         f"Grandparent: {grandparent_text}\n"
                         f"Uncle: {uncle_text}")
             self.actualizar_derecha("Resultado de Búsqueda", result_text)
+        elif len(specialized_movies) > 1:
+            titles = specialized_movies['Title'].tolist()
+            self.actualizar_derecha("Búsqueda Especializada", "Seleccione una película", con_input=True, input_text1="Título")
+            self.input1.configure(values=titles, state='readonly')  # Mostrar lista desplegable
+            self.boton_accion.configure(command=lambda: self.display_movie_details(titles))
         else:
             messagebox.showinfo("Búsqueda", "No se encontraron películas con los criterios especificados.")
+
+    #def display_movie_details(self, titles):
+     #   selected_title = self.input1.get()
+      #  if selected_title:
+       #     level = find_level(self.root, selected_title)
+        #    parent = find_parent(self.root, selected_title)
+         #   grandparent = find_grandparent(self.root, selected_title)
+          #  uncle = find_uncle(self.root, selected_title)
+
+           # parent_text = parent.title if parent else "None"
+            #grandparent_text = grandparent.title if grandparent else "None"
+            #uncle_text = uncle.title if uncle else "None"
+
+            #result_text = (f"Found {selected_title}\n"
+             #           f"Level: {level}\n"
+              #          f"Parent: {parent_text}\n"
+               #         f"Grandparent: {grandparent_text}\n"
+                ## self.actualizar_derecha("Resultado de Búsqueda", result_text)
+
 
     def load_csv_and_insert_nodes(self):
         # Leer el archivo CSV
