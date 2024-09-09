@@ -1,0 +1,35 @@
+digraph {
+	Ghostbusters
+	Ghostbusters -> Yomigaeri
+	Yomigaeri
+	Yomigaeri -> Hamlet
+	Hamlet
+	Hamlet -> Agora
+	Hamlet -> Harmony
+	Harmony
+	Harmony -> Aquaman
+	Aquaman
+	Aquaman -> Pandora
+	Yomigaeri -> "Titan A.E."
+	"Titan A.E."
+	"Titan A.E." -> Wimbledon
+	"Titan A.E." -> "Snake Eyes"
+	"Snake Eyes"
+	"Snake Eyes" -> "The Losers"
+	Ghostbusters -> "Tiny Times 3.0"
+	"Tiny Times 3.0"
+	"Tiny Times 3.0" -> "Bleeding Steel"
+	"Bleeding Steel"
+	"Bleeding Steel" -> "Night School"
+	"Night School"
+	"Night School" -> "Nanny McPhee"
+	"Tiny Times 3.0" -> "The Lone Ranger"
+	"The Lone Ranger"
+	"The Lone Ranger" -> "Haunted Mansion"
+	"Haunted Mansion"
+	"Haunted Mansion" -> "Haunted Castle"
+	"The Lone Ranger" -> "My Father and My Son"
+	"My Father and My Son"
+	"My Father and My Son" -> "Horton Hears a Who!"
+	"My Father and My Son" -> "My Super Ex0Girlfriend"
+}
