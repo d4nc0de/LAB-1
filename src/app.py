@@ -150,6 +150,7 @@ class AVLApp:
         self.boton_accion.configure(command=self.execute_search)
 
     def execute_search(self):
+       def execute_search(self):
         title = self.input1.get()
         node = self.tree.search(self.root, title)
         if node:
@@ -170,6 +171,7 @@ class AVLApp:
             self.actualizar_derecha("Resultado de Búsqueda", result_text)
         else:
             messagebox.showinfo("Info", f"{title} not found")
+
     def insert_node(self):
             self.actualizar_derecha("INSERTAR", "Ingrese el nodo a insertar", con_input=True, input_text1="Nombre del nodo", boton_accion="Agregar")
             self.boton_accion.configure(command=self.execute_insert)
@@ -193,64 +195,50 @@ class AVLApp:
         self.boton_accion.configure(command=self.execute_specific_search)
 
     def execute_specific_search(self):
-        year = int(self.input1.get())
-        foreign_earnings = float(self.input2.get())
+        try:
+            # Obtener valores de entrada y validar
+            year = int(self.input1.get())
+            foreign_earnings = float(self.input2.get())
+            print(f"Searching for year: {year} and foreign earnings >= {foreign_earnings}")  # Debugging
 
-        # Leer el archivo CSV
-        df = pd.read_csv('data/dataset_movies.csv')
+            # Leer el archivo CSV y filtrar
+            df = pd.read_csv('data/dataset_movies.csv')
+            filtered_df = df[df['Title'].isin(self.generated_titles)]
+            print(f"Filtered Titles: {filtered_df['Title'].tolist()}")  # Debugging
 
-        # Filtrar por los títulos generados aleatoriamente al inicio
-        filtered_df = df[df['Title'].isin(self.generated_titles)]
+            # Aplicar los criterios de búsqueda
+            specialized_movies = filtered_df[
+                (filtered_df['Year'] == year) &
+                (filtered_df['Domestic Percent Earnings'] < filtered_df['Foreign Percent Earnings']) &
+                (filtered_df['Foreign Earnings'] >= foreign_earnings)
+            ]
 
-        # Aplicar los criterios de búsqueda
-        specialized_movies = filtered_df[(filtered_df['Year'] == year) & 
-                                        (filtered_df['Domestic Percent Earnings'] < filtered_df['Foreign Percent Earnings']) & 
-                                        (filtered_df['Foreign Earnings'] >= foreign_earnings)]
+            if not specialized_movies.empty:
+                title = specialized_movies.iloc[0]['Title']
+                # Encontrar niveles, padres, etc.
+                level = find_level(self.root, title)
+                parent = find_parent(self.root, title)
+                grandparent = find_grandparent(self.root, title)
+                uncle = find_uncle(self.root, title)
 
-        if len(specialized_movies) == 1:
-            title = specialized_movies.iloc[0]['Title']
+                parent_text = parent.title if parent else "None"
+                grandparent_text = grandparent.title if grandparent else "None"
+                uncle_text = uncle.title if uncle else "None"
 
-            level = find_level(self.root, title)
-            parent = find_parent(self.root, title)
-            grandparent = find_grandparent(self.root, title)
-            uncle = find_uncle(self.root, title)
-
-            parent_text = parent.title if parent else "None"
-            grandparent_text = grandparent.title if grandparent else "None"
-            uncle_text = uncle.title if uncle else "None"
-
-            result_text = (f"Found {title}\n"
-                        f"Level: {level}\n"
-                        f"Parent: {parent_text}\n"
-                        f"Grandparent: {grandparent_text}\n"
-                        f"Uncle: {uncle_text}")
-            self.actualizar_derecha("Resultado de Búsqueda", result_text)
-        elif len(specialized_movies) > 1:
-            titles = specialized_movies['Title'].tolist()
-            self.actualizar_derecha("Búsqueda Especializada", "Seleccione una película", con_input=True, input_text1="Título")
-            self.input1.configure(values=titles, state='readonly')  # Mostrar lista desplegable
-            self.boton_accion.configure(command=lambda: self.display_movie_details(titles))
-        else:
-            messagebox.showinfo("Búsqueda", "No se encontraron películas con los criterios especificados.")
-
-    #def display_movie_details(self, titles):
-     #   selected_title = self.input1.get()
-      #  if selected_title:
-       #     level = find_level(self.root, selected_title)
-        #    parent = find_parent(self.root, selected_title)
-         #   grandparent = find_grandparent(self.root, selected_title)
-          #  uncle = find_uncle(self.root, selected_title)
-
-           # parent_text = parent.title if parent else "None"
-            #grandparent_text = grandparent.title if grandparent else "None"
-            #uncle_text = uncle.title if uncle else "None"
-
-            #result_text = (f"Found {selected_title}\n"
-             #           f"Level: {level}\n"
-              #          f"Parent: {parent_text}\n"
-               #         f"Grandparent: {grandparent_text}\n"
-                ## self.actualizar_derecha("Resultado de Búsqueda", result_text)
-
+                result_text = (
+                    f"Found {title}\n"
+                    f"Level: {level}\n"
+                    f"Parent: {parent_text}\n"
+                    f"Grandparent: {grandparent_text}\n"
+                    f"Uncle: {uncle_text}"
+                )
+                self.actualizar_derecha("Resultado de Búsqueda", result_text)
+            else:
+                messagebox.showinfo("Búsqueda", "No se encontraron películas con los criterios especificados.")
+        except ValueError as e:
+            messagebox.showerror("Error", f"Entrada inválida: {str(e)}")
+        except Exception as e:
+            messagebox.showerror("Error", f"Error durante la búsqueda: {str(e)}")
 
     def load_csv_and_insert_nodes(self):
         # Leer el archivo CSV
