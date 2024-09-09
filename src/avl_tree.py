@@ -72,13 +72,15 @@ class AVLTree:
             return
         queue = []
         queue.append(root)
+        order = ""
         while queue:
             node = queue.pop(0)
-            print(node.title, end=" ")
+            order += node.title + ", "
             if node.left:
                 queue.append(node.left)
             if node.right:
                 queue.append(node.right)
+        print(order, end=".")
 
     def get_height(self, root):
         if not root:

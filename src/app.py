@@ -11,7 +11,7 @@ class AVLApp:
         self.root = None
         self.window = ctk.CTk()
         self.window.title("AVL Tree Application")
-        self.window.size(1280,720)
+        #self.window.size(1280,720)
 
         self.title_entry = ctk.CTkEntry(self.window, placeholder_text="Title")
         self.title_entry.pack()
@@ -40,7 +40,7 @@ class AVLApp:
             # Leer el archivo CSV
             df = pd.read_csv('data/dataset_movies.csv')
             # Seleccionar 3 títulos aleatorios
-            titles = random.sample(list(df['Title']), 30)
+            titles = random.sample(list(df['Title']), 5)
             # quitar los titulos que tengan dos puntos
             titles = [title for title in titles if ':' not in title]
 
