@@ -249,7 +249,7 @@ class AVLApp:
 
         for title in self.generated_titles:
             self.root = self.tree.insert(self.root, title)
-        messagebox.showinfo("Info", f"Inserted titles: {', '.join(self.generated_titles)}")
+        messagebox.showinfo("Info", f"Inserted titles: {','.join(self.generated_titles)}")
 
 
     def level_order_traversal(self):
@@ -273,7 +273,7 @@ class AVLApp:
         # Función para ajustar texto a la pantalla dividiendo en líneas de max_width caracteres
         words = text.split()
         lines = []
-        current_line = ""
+        current_line =""
 
         for word in words:
             if len(current_line) + len(word) + 1 > max_width:
