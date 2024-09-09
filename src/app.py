@@ -148,9 +148,8 @@ class AVLApp:
     def search_node(self):
         self.actualizar_derecha("BÚSQUEDA", "Ingrese el nodo a buscar", con_input=True, input_text1="Nombre del nodo", boton_accion="Buscar")
         self.boton_accion.configure(command=self.execute_search)
-
+        
     def execute_search(self):
-       def execute_search(self):
         title = self.input1.get()
         node = self.tree.search(self.root, title)
         if node:
