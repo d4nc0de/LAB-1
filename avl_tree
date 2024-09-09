@@ -1,49 +1,38 @@
 digraph {
-	"The Possession"
-	"The Possession" -> "Love Again"
-	"Love Again"
-	"Love Again" -> Umizaru
-	Umizaru
-	Umizaru -> Widows
-	Widows
-	Widows -> Quills
-	Umizaru -> "Red Cliff"
-	"Red Cliff"
-	"Red Cliff" -> "The Star"
-	"Love Again" -> "Shoot 'Em Up"
-	"Shoot 'Em Up"
-	"Shoot 'Em Up" -> "Open Season"
-	"Open Season"
-	"Open Season" -> "Bad Company"
-	"Bad Company"
-	"Bad Company" -> "Baba Parasi"
-	"Shoot 'Em Up" -> "A Taxi Driver"
-	"A Taxi Driver"
-	"A Taxi Driver" -> "Days of Glory"
-	"Days of Glory"
-	"Days of Glory" -> "North Country"
-	"The Possession" -> "The Family That Preys"
-	"The Family That Preys"
-	"The Family That Preys" -> "Gangs of New York"
-	"Gangs of New York"
-	"Gangs of New York" -> "The Last Trapper"
-	"The Last Trapper"
-	"The Last Trapper" -> "The Photograph"
-	"The Last Trapper" -> "Son of the Bride"
-	"Gangs of New York" -> "The Shape of Water"
-	"The Shape of Water"
-	"The Shape of Water" -> "The Invisible Man"
-	"The Shape of Water" -> "That Awkward Moment"
-	"That Awkward Moment"
-	"That Awkward Moment" -> "Épouse0moi mon pote"
-	"That Awkward Moment" -> "The Tailor of Panama"
-	"The Family That Preys" -> "Titanic 25 Year Anniversary"
-	"Titanic 25 Year Anniversary"
-	"Titanic 25 Year Anniversary" -> "Ala Vaikunthapurramuloo"
-	"Ala Vaikunthapurramuloo"
-	"Ala Vaikunthapurramuloo" -> "The Grand Budapest Hotel"
-	"Titanic 25 Year Anniversary" -> "Godzilla Against Mechagodzilla"
-	"Godzilla Against Mechagodzilla"
-	"Godzilla Against Mechagodzilla" -> "Beasts of the Southern Wild"
-	"Godzilla Against Mechagodzilla" -> "Harry Potter and the Half0Blood Prince"
+	"Reindeer Games"
+	"Reindeer Games" -> Pollock
+	Pollock
+	Pollock -> CHIPS
+	CHIPS
+	CHIPS -> xXx
+	xXx
+	xXx -> Saw
+	xXx -> Narc
+	CHIPS -> "John Q"
+	"John Q"
+	"John Q" -> Strays
+	Pollock -> "The Kingdom"
+	"The Kingdom"
+	"The Kingdom" -> chocolat
+	"The Kingdom" -> "Training Day"
+	"Training Day"
+	"Training Day" -> "Dance Flick"
+	"Training Day" -> "Money Monster"
+	"Reindeer Games" -> "The Adjustment Bureau"
+	"The Adjustment Bureau"
+	"The Adjustment Bureau" -> "American Gangster"
+	"American Gangster"
+	"American Gangster" -> "Good Bye Lenin!"
+	"Good Bye Lenin!"
+	"Good Bye Lenin!" -> "The First Omen"
+	"Good Bye Lenin!" -> "Battle Royale II"
+	"American Gangster" -> "The Quiet American"
+	"The Quiet American"
+	"The Quiet American" -> "Alice in Wonderland"
+	"The Adjustment Bureau" -> "Hocus Pocus 2020 Re0release"
+	"Hocus Pocus 2020 Re0release"
+	"Hocus Pocus 2020 Re0release" -> "Where the Wild Things Are"
+	"Where the Wild Things Are"
+	"Where the Wild Things Are" -> "The Girl on the Train"
+	"Hocus Pocus 2020 Re0release" -> "On the Other Side of the Tracks"
 }

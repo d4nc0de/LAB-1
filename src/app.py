@@ -150,7 +150,6 @@ class AVLApp:
         self.boton_accion.configure(command=self.execute_search)
 
     def execute_search(self):
-       def execute_search(self):
         title = self.input1.get()
         node = self.tree.search(self.root, title)
         if node:
