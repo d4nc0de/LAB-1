@@ -7,6 +7,7 @@ from visualize import visualize_tree
 import tkinter as tk
 from tkinter import Canvas
 import sys
+from utils import *
 
 sys.setrecursionlimit(1500)
 
@@ -149,16 +150,31 @@ class AVLApp:
         self.boton_accion.configure(command=self.execute_search)
 
     def execute_search(self):
+       def execute_search(self):
         title = self.input1.get()
         node = self.tree.search(self.root, title)
         if node:
-            messagebox.showinfo("Info", f"Found {title}")
+            level = find_level(self.root, title)
+            parent = find_parent(self.root, title)
+            grandparent = find_grandparent(self.root, title)
+            uncle = find_uncle(self.root, title)
+
+            parent_text = parent.title if parent else "None"
+            grandparent_text = grandparent.title if grandparent else "None"
+            uncle_text = uncle.title if uncle else "None"
+
+            result_text = (f"Found {title}\n"
+                        f"Level: {level}\n"
+                        f"Parent: {parent_text}\n"
+                        f"Grandparent: {grandparent_text}\n"
+                        f"Uncle: {uncle_text}")
+            self.actualizar_derecha("Resultado de Búsqueda", result_text)
         else:
             messagebox.showinfo("Info", f"{title} not found")
 
     def insert_node(self):
-        self.actualizar_derecha("INSERTAR", "Ingrese el nodo a insertar", con_input=True, input_text1="Nombre del nodo", boton_accion="Agregar")
-        self.boton_accion.configure(command=self.execute_insert)
+            self.actualizar_derecha("INSERTAR", "Ingrese el nodo a insertar", con_input=True, input_text1="Nombre del nodo", boton_accion="Agregar")
+            self.boton_accion.configure(command=self.execute_insert)
 
     def execute_insert(self):
         title = self.input1.get()
@@ -194,12 +210,26 @@ class AVLApp:
                                         (filtered_df['Foreign Earnings'] >= foreign_earnings)]
 
         if not specialized_movies.empty:
-            movies_list = ", ".join(specialized_movies['Title'].tolist())
-            messagebox.showinfo("Películas encontradas", f"Películas: {movies_list}")
+            title = specialized_movies.iloc[0]['Title']  # Tomar la primera película encontrada
+
+            level = find_level(self.root, title)
+            parent = find_parent(self.root, title)
+            grandparent = find_grandparent(self.root, title)
+            uncle = find_uncle(self.root, title)
+
+            parent_text = parent.title if parent else "None"
+            grandparent_text = grandparent.title if grandparent else "None"
+            uncle_text = uncle.title if uncle else "None"
+
+            result_text = (f"Found {title}\n"
+                        f"Level: {level}\n"
+                        f"Parent: {parent_text}\n"
+                        f"Grandparent: {grandparent_text}\n"
+                        f"Uncle: {uncle_text}")
+            self.actualizar_derecha("Resultado de Búsqueda", result_text)
         else:
             messagebox.showinfo("Búsqueda", "No se encontraron películas con los criterios especificados.")
 
-            
     def load_csv_and_insert_nodes(self):
         # Leer el archivo CSV
         df = pd.read_csv('data/dataset_movies.csv')
