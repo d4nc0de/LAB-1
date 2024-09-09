@@ -181,17 +181,37 @@ class AVLApp:
     def execute_specific_search(self):
         year = int(self.input1.get())
         foreign_earnings = float(self.input2.get())
-        # Leer el archivo CSV y buscar las películas que cumplen con los criterios
+
+        # Leer el archivo CSV
         df = pd.read_csv('data/dataset_movies.csv')
-        filtered_movies = df[(df['Year'] == year) & 
-                             (df['Domestic Percent Earnings'] < df['Foreign Percent Earnings']) & 
-                             (df['Foreign Percent Earnings'] >= foreign_earnings)]
-        
-        if not filtered_movies.empty:
-            movies_list = ", ".join(filtered_movies['Title'].tolist())
+
+        # Filtrar por los títulos generados aleatoriamente al inicio
+        filtered_df = df[df['Title'].isin(self.generated_titles)]
+
+        # Aplicar los criterios de búsqueda
+        specialized_movies = filtered_df[(filtered_df['Year'] == year) & 
+                                        (filtered_df['Domestic Percent Earnings'] < filtered_df['Foreign Percent Earnings']) & 
+                                        (filtered_df['Foreign Earnings'] >= foreign_earnings)]
+
+        if not specialized_movies.empty:
+            movies_list = ", ".join(specialized_movies['Title'].tolist())
             messagebox.showinfo("Películas encontradas", f"Películas: {movies_list}")
         else:
             messagebox.showinfo("Búsqueda", "No se encontraron películas con los criterios especificados.")
+
+            
+    def load_csv_and_insert_nodes(self):
+        # Leer el archivo CSV
+        df = pd.read_csv('data/dataset_movies.csv')
+
+        # Seleccionar títulos aleatorios
+        self.generated_titles = random.sample(list(df['Title']), 30)
+        self.generated_titles = [title for title in self.generated_titles if ':' not in title]
+
+        for title in self.generated_titles:
+            self.root = self.tree.insert(self.root, title)
+        messagebox.showinfo("Info", f"Inserted titles: {', '.join(self.generated_titles)}")
+
 
     def level_order_traversal(self):
         self.tree.level_order_traversal(self.root)
