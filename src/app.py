@@ -8,6 +8,7 @@ import tkinter as tk
 from tkinter import Canvas
 import sys
 from utils import *
+import csv
 
 sys.setrecursionlimit(1500)
 
@@ -177,8 +178,17 @@ class AVLApp:
 
     def execute_insert(self):
         title = self.input1.get()
-        self.root = self.tree.insert(self.root, title)
-        messagebox.showinfo("Info", f"Inserted {title}")
+        # Leer el archivo CSV y verificar si el título ya existe
+        with open('data/dataset_movies.csv', mode='r') as file:
+            reader = csv.reader(file)
+            titles = [row[0] for row in reader]
+        
+        if title in titles:
+            self.generated_titles.append(title)
+            self.root = self.tree.insert(self.root, title)
+            messagebox.showinfo("Info", f"Inserted {title}")
+        else:
+            messagebox.showinfo("Info", f"El título '{title}' no existe en el archivo CSV y no se ha insertado.")
 
     def delete_node(self):
         self.actualizar_derecha("ELIMINAR", "Ingrese el nodo a eliminar", con_input=True, input_text1="Nombre del nodo", boton_accion="Eliminar")
@@ -193,46 +203,54 @@ class AVLApp:
         self.actualizar_derecha("BÚSQUEDA ESPECIALIZADA", "Ingrese los criterios", con_input=True, input_text1="Año", input_text2="Ingresos (Foreign)", boton_accion="Buscar")
         self.boton_accion.configure(command=self.execute_specific_search)
 
-    def search_specific(self):
-        self.actualizar_derecha("BÚSQUEDA ESPECIALIZADA", "Ingrese los criterios", con_input=True, input_text1="Año", input_text2="Ingresos (Foreign)", boton_accion="Buscar")
-        self.boton_accion.configure(command=self.execute_specific_search)
-
     def execute_specific_search(self):
-        year = int(self.input1.get())
-        foreign_earnings = float(self.input2.get())
+        try:
+            # Obtener valores de entrada y validar
+            year = int(self.input1.get())
+            foreign_earnings = float(self.input2.get())
+            print(f"Searching for year: {year} and foreign earnings >= {foreign_earnings}")  # Debugging
 
-        # Leer el archivo CSV
-        df = pd.read_csv('data/dataset_movies.csv')
+            # Leer el archivo CSV y filtrar
+            df = pd.read_csv('data/dataset_movies.csv')
+            filtered_df = df[df['Title'].isin(self.generated_titles)]
+            print(f"Filtered Titles: {filtered_df['Title'].tolist()}")  # Debugging
 
-        # Filtrar por los títulos generados aleatoriamente al inicio
-        filtered_df = df[df['Title'].isin(self.generated_titles)]
+            # Aplicar los criterios de búsqueda
+            specialized_movies = filtered_df[
+                (filtered_df['Year'] == year) &
+                (filtered_df['Domestic Percent Earnings'] < filtered_df['Foreign Percent Earnings']) &
+                (filtered_df['Foreign Earnings'] >= foreign_earnings)
+            ]
 
-        # Aplicar los criterios de búsqueda
-        specialized_movies = filtered_df[(filtered_df['Year'] == year) & 
-                                        (filtered_df['Domestic Percent Earnings'] < filtered_df['Foreign Percent Earnings']) & 
-                                        (filtered_df['Foreign Earnings'] >= foreign_earnings)]
+            if not specialized_movies.empty:
+                result_text = "Found Movies: \n"
+                for i in range(len(specialized_movies)) :
+                 title = specialized_movies.iloc[i]['Title']
+                 
+                 # Encontrar niveles, padres, etc.
+                 level = find_level(self.root, title)
+                 parent = find_parent(self.root, title)
+                 grandparent = find_grandparent(self.root, title)
+                 uncle = find_uncle(self.root, title)
 
-        if not specialized_movies.empty:
-            title = specialized_movies.iloc[0]['Title']  # Tomar la primera película encontrada
-
-            level = find_level(self.root, title)
-            parent = find_parent(self.root, title)
-            grandparent = find_grandparent(self.root, title)
-            uncle = find_uncle(self.root, title)
-
-            parent_text = parent.title if parent else "None"
-            grandparent_text = grandparent.title if grandparent else "None"
-            uncle_text = uncle.title if uncle else "None"
-
-            result_text = (f"Found {title}\n"
-                        f"Level: {level}\n"
-                        f"Parent: {parent_text}\n"
-                        f"Grandparent: {grandparent_text}\n"
-                        f"Uncle: {uncle_text}")
-            self.actualizar_derecha("Resultado de Búsqueda", result_text)
-        else:
-            messagebox.showinfo("Búsqueda", "No se encontraron películas con los criterios especificados.")
-
+                 parent_text = parent.title if parent else "None"
+                 grandparent_text = grandparent.title if grandparent else "None"
+                 uncle_text = uncle.title if uncle else "None"
+                 result_text += (
+                    f"\n Title: {title}\n"
+                    f"Level: {level}\n"
+                    f"Parent: {parent_text}\n"
+                    f"Grandparent: {grandparent_text}\n"
+                    f"Uncle: {uncle_text}"
+                 )
+                self.actualizar_derecha("Resultado de Búsqueda", result_text)
+            else:
+                messagebox.showinfo("Búsqueda", "No se encontraron películas con los criterios especificados.")
+        except ValueError as e:
+            messagebox.showerror("Error", f"Entrada inválida: {str(e)}")
+        except Exception as e:
+            messagebox.showerror("Error", f"Error durante la búsqueda: {str(e)}")
+            
     def load_csv_and_insert_nodes(self):
         # Leer el archivo CSV
         df = pd.read_csv('data/dataset_movies.csv')
@@ -283,7 +301,7 @@ class AVLApp:
         return "\n".join(lines)
     
     def visualize_tree(self):
-            visualize_tree(self.root)
+        visualize_tree(self.root)
 
 
 if __name__ == "__main__":
