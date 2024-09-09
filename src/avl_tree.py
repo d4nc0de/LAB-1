@@ -81,6 +81,36 @@ class AVLTree:
             if node.right:
                 queue.append(node.right)
         print(order, end=".")
+        return order
+
+    def get_titles(self, root):
+        # Inicializar la lista de resultados
+        result = []
+
+        # Si el árbol está vacío, devolver la lista vacía
+        if not root:
+            return result
+
+        # Inicializar la cola para recorrer el árbol por niveles
+        queue = []
+        queue.append(root)
+
+        # Recorrer el árbol en anchura (nivel por nivel)
+        while queue:
+            node = queue.pop(0)
+            result.append(node.title)  # Agregar el título del nodo a la lista
+            #print(node.title, end=" ")  # Imprimir el título del nodo (opcional)
+
+            # Agregar los hijos del nodo actual a la cola
+            if node.left:
+                queue.append(node.left)
+            if node.right:
+                queue.append(node.right)
+
+        # Devolver la lista de títulos}
+        
+        return result
+
 
     def get_height(self, root):
         if not root:

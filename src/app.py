@@ -32,21 +32,46 @@ class AVLApp:
         self.visualize_button.pack()
 
         self.load_csv_and_insert_nodes()
-
+        self.filter_titles(self.tree.get_titles(self.root),2011, 150)
         self.window.mainloop()
 
 
     def load_csv_and_insert_nodes(self):
             # Leer el archivo CSV
             df = pd.read_csv('data/dataset_movies.csv')
-            # Seleccionar 3 títulos aleatorios
-            titles = random.sample(list(df['Title']), 5)
+            # Seleccionar 3 títulos aleatorios1
+            titles = random.sample(list(df['Title']), 30)
             # quitar los titulos que tengan dos puntos
             titles = [title for title in titles if ':' not in title]
 
             for title in titles:
                 self.root = self.tree.insert(self.root, title)
             messagebox.showinfo("Info", f"Inserted titles: {', '.join(titles)}")
+    
+
+    def filter_titles(self, titles, year, foreignEarnings):
+    # Leer el archivo CSV
+        df = pd.read_csv('data/dataset_movies.csv')
+        result = ""
+        # Filtrar las filas que cumplen con las condiciones
+        filtered_df = df[
+            (df['Year'] == year) &
+            (df['Domestic Percent Earnings'] < df['Foreign Percent Earnings']) &
+            (df['Foreign Earnings'] >= foreignEarnings)
+        ]
+        
+        # Filtrar las filas que contienen los títulos deseados
+        filtered_titles = filtered_df[filtered_df['Title'].isin(titles)]
+        
+        # Obtener la lista de títulos filtrados
+        result_titles = filtered_titles['Title'].tolist()
+        for titles in result_titles:
+            result += titles + ", "
+            print(titles)
+        
+        #return result
+    
+
 
     def insert_node(self):
         title = self.title_entry.get()
