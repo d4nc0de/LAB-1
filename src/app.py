@@ -2,7 +2,7 @@ import customtkinter as ctk
 from tkinter import PhotoImage, messagebox
 import pandas as pd
 import random
-from avl_tree import AVLTree
+from avl_tree import *
 from visualize import visualize_tree
 import tkinter as tk
 from tkinter import Canvas
@@ -157,7 +157,8 @@ class AVLApp:
             level = find_level(self.root, title)
             parent = find_parent(self.root, title)
             grandparent = find_grandparent(self.root, title)
-            uncle = find_uncle(self.root, title)
+            uncle = find_uncle(self.root, title)  
+            Balance = self.tree.get_balance(node)
 
             parent_text = parent.title if parent else "None"
             grandparent_text = grandparent.title if grandparent else "None"
@@ -167,7 +168,8 @@ class AVLApp:
                         f"Level: {level}\n"
                         f"Parent: {parent_text}\n"
                         f"Grandparent: {grandparent_text}\n"
-                        f"Uncle: {uncle_text}")
+                        f"Uncle: {uncle_text}\n"
+                        f"Balance: {Balance}")
             self.actualizar_derecha("Resultado de Búsqueda", result_text)
         else:
             messagebox.showinfo("Info", f"{title} not found")
@@ -250,7 +252,7 @@ class AVLApp:
             messagebox.showerror("Error", f"Entrada inválida: {str(e)}")
         except Exception as e:
             messagebox.showerror("Error", f"Error durante la búsqueda: {str(e)}")
-            
+
     def load_csv_and_insert_nodes(self):
         # Leer el archivo CSV
         df = pd.read_csv('data/dataset_movies.csv')

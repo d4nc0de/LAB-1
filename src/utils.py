@@ -14,7 +14,7 @@ def find_parent(root, title, parent=None):
     if root.title == title:
         return parent
     parent = root
-    if len(title) < len(root.title):
+    if title < root.title:
         return find_parent(root.left, title, parent)
     return find_parent(root.right, title, parent)
 
