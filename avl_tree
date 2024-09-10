@@ -1,41 +1,32 @@
 digraph {
-	"The Unbroken"
-	"The Unbroken" -> "The Family"
-	"The Family"
-	"The Family" -> Silence
-	Silence
-	Silence -> Buried
-	Buried
-	Buried -> Pawn
-	Buried -> "My Spy"
-	"My Spy"
-	"My Spy" -> Fences
-	Silence -> "Baby Boy"
-	"Baby Boy"
-	"Baby Boy" -> Dunkirk
-	"Baby Boy" -> Duckweed
-	"The Family" -> "Inside Man"
-	"Inside Man"
-	"Inside Man" -> Brightburn
-	Brightburn
-	Brightburn -> "Big Hero 6"
-	"Inside Man" -> "The Gambler"
-	"The Unbroken" -> "Mission Milano"
-	"Mission Milano"
-	"Mission Milano" -> Qualunquemente
-	Qualunquemente
-	Qualunquemente -> "Dracula Untold"
-	"Dracula Untold"
-	"Dracula Untold" -> "Helter Skelter"
-	"Mission Milano" -> "Cowboys & Aliens"
-	"Cowboys & Aliens"
-	"Cowboys & Aliens" -> "Son of Bigfoot"
-	"Son of Bigfoot"
-	"Son of Bigfoot" -> "All Your Faces"
-	"Cowboys & Aliens" -> "Stand by Me Doraemon"
-	"Stand by Me Doraemon"
-	"Stand by Me Doraemon" -> "Lakeview Terrace"
-	"Lakeview Terrace"
-	"Lakeview Terrace" -> "Four Christmases"
-	"Stand by Me Doraemon" -> "Those Who Wish Me Dead"
+	"Mr. Deeds"
+	"Mr. Deeds" -> Amour
+	Amour
+	Amour -> "A Beautiful Wife"
+	"A Beautiful Wife"
+	"A Beautiful Wife" -> "50/50"
+	"A Beautiful Wife" -> Agora
+	Agora
+	Agora -> Aladdin
+	Amour -> Divergent
+	Divergent
+	Divergent -> "Chasing the Dragon"
+	Divergent -> "Lost Souls"
+	"Mr. Deeds" -> "Stormy Night"
+	"Stormy Night"
+	"Stormy Night" -> "Re/Member"
+	"Re/Member"
+	"Re/Member" -> Orphan
+	Orphan
+	Orphan -> Partner
+	"Re/Member" -> "School for Scoundrels"
+	"Stormy Night" -> "The Thing"
+	"The Thing"
+	"The Thing" -> "The Princess and the Frog"
+	"The Princess and the Frog"
+	"The Princess and the Frog" -> "The Boss Baby"
+	"The Thing" -> "Tiger Zinda Hai"
+	"Tiger Zinda Hai"
+	"Tiger Zinda Hai" -> "The Village"
+	"Tiger Zinda Hai" -> "Two Is a Family"
 }

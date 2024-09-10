@@ -4,7 +4,7 @@ class AVLTree:
     def insert(self, root, title):
         if not root:
             return Node(title)
-        if len(title) < len(root.title):
+        if title < root.title:
             root.left = self.insert(root.left, title)
         else:
             root.right = self.insert(root.right, title)
@@ -12,14 +12,14 @@ class AVLTree:
         root.height = 1 + max(self.get_height(root.left), self.get_height(root.right))
         balance = self.get_balance(root)
 
-        if balance > 1 and len(title) < len(root.left.title):
+        if balance > 1 and title < root.left.title:
             return self.right_rotate(root)
-        if balance < -1 and len(title) > len(root.right.title):
+        if balance < -1 and title > root.right.title:
             return self.left_rotate(root)
-        if balance > 1 and len(title) > len(root.left.title):
+        if balance > 1 and title > root.left.title:
             root.left = self.left_rotate(root.left)
             return self.right_rotate(root)
-        if balance < -1 and len(title) < len(root.right.title):
+        if balance < -1 and title < root.right.title:
             root.right = self.right_rotate(root.right)
             return self.left_rotate(root)
 
@@ -28,9 +28,9 @@ class AVLTree:
     def delete(self, root, title):
         if not root:
             return root
-        if len(title) < len(root.title):
+        if title < root.title:
             root.left = self.delete(root.left, title)
-        elif len(title) > len(root.title):
+        elif title > root.title:
             root.right = self.delete(root.right, title)
         else:
             if not root.left:
@@ -63,7 +63,7 @@ class AVLTree:
     def search(self, root, title):
         if not root or root.title == title:
             return root
-        if len(title) < len(root.title):
+        if title < root.title:
             return self.search(root.left, title)
         return self.search(root.right, title)
 
